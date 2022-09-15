@@ -25,6 +25,11 @@ namespace Project1MP3
             setPath(path);
         }
 
+        public MP3()
+        {
+            //hopefully this never makes it to a print
+        }
+
         public void setTitle(string title)
         {
             this.title = title;

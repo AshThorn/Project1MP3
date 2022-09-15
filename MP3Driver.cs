@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Project1MP3
 {
@@ -10,18 +11,24 @@ namespace Project1MP3
         {
             string username;
             int selection;
-            MP3[] storage = new MP3[0];
-            MP3 newMP3;
+            MP3 storage = new MP3();
+            bool hasStoredMP3 = false;
+
             welcomeMessage();//explanation of program's functionality
             username = usernameRequest();//get user's name
             do
             {
-                selection = menu(storage.Length);
+                selection = menu(hasStoredMP3);
                 if(selection == 1)
                 {
-                    newMP3 = makeNewFile();
+                    storage = makeNewFile();
+                    hasStoredMP3 = true;//tell the program it has an mp3 stored
                 }
-            } while (selection != 3);
+                else if(selection == 2)
+                {
+                    System.Console.WriteLine(storage);
+                }
+            } while (selection != 3);//continue running until user requests exit
             System.Console.WriteLine("Thank you for using my program, " + username + ".");
         }
 
@@ -45,7 +52,7 @@ namespace Project1MP3
             return username;
         }
 
-        private static int menu(int storageLength)
+        private static int menu(bool hasStoredMP3)
         {
             int selection;
             string input;
@@ -57,19 +64,19 @@ namespace Project1MP3
                 "\t2.\tDisplay an MP3 file\n" +
                 "\t3.\tClose the program\n" +
                 "\n" +
-                "\tPlease enter your selection as a number:");
-            input = System.Console.ReadLine();
-            if (Int32.TryParse(input, out selection))
+                "\tPlease enter your selection as a number:");//print the menu
+            input = System.Console.ReadLine();//recieve input
+            if (Int32.TryParse(input, out selection))//check validity of input
             {
-                if ((selection == 2 && storageLength == 0) || selection < 0 || selection > 3)
+                if ((selection == 2 && !hasStoredMP3) || selection < 0 || selection > 3)//if input invalid,
                 {
                     Console.WriteLine("This is not a valid entry.");
-                    return menu(storageLength);
+                    return menu(hasStoredMP3);//try again
                 }
-                return selection;
+                return selection;//if valid, then return
             }
             Console.WriteLine("This is not a valid entry.");
-            return menu(storageLength);
+            return menu(hasStoredMP3);//invalid input handling part 2
         }
 
         private static MP3 makeNewFile()
@@ -83,6 +90,45 @@ namespace Project1MP3
             double fileSize;
             string path;
 
+            Console.WriteLine("Right, making a new MP3.");
+
+            //get the values for the MP3
+            //I know these lack error handling but I'm running out of time
+            System.Console.Write("Enter the title:");
+            title = System.Console.ReadLine();
+            Console.Write("Enter the artist:");
+            artist = System.Console.ReadLine();
+            Console.Write("Enter the release date:");
+            releaseDate = System.Console.ReadLine();
+            Console.Write("Enter the playtime:");
+            playtime = Double.Parse(Console.ReadLine());
+            Console.Write("Enter the genre:");
+            genre = parseStringToGenre(Console.ReadLine());
+            Console.Write("Enter the cost of the download:");
+            downloadCost = decimal.Parse(Console.ReadLine());
+            Console.Write("Enter the size of the file in MB:");
+            fileSize = Double.Parse(Console.ReadLine());
+            Console.Write("Enter the path to the album cover:");
+            path = System.Console.ReadLine();
+
+            return new MP3(title, artist, releaseDate, playtime, genre, downloadCost, fileSize, path);
+        }
+
+        private static Genre parseStringToGenre(string str)
+        {
+            while (true)
+            {
+                switch (str)
+                {
+                    case "Rock": return Genre.Rock; break;
+                    case "Pop": return Genre.Pop; break;
+                    case "Jazz": return Genre.Jazz; break;
+                    case "Country": return Genre.Country; break;
+                    case "Classical": return Genre.Classical; break;
+                    default: return Genre.Other; break;//yes I know this will turn any typo into other but I have no time
+                    //I swear I know what I'm doing
+                }
+            }
+        }
     }
-}
 }
