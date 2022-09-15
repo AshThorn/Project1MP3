@@ -1,12 +1,29 @@
-﻿using System;
+﻿/*
+    Project: Projecct 1
+    File name: Project1MP3Driver
+    Description: makes and displays mp3 headers
+    Course: CSCI 1260
+    Author: Ash North
+    Created: 2022-09-14
+    Copyright: Ash North 2022
+ */
+
+using System;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Project1MP3
 {
+    /// <summary>
+    /// driver for mp3s
+    /// </summary>
     public class MP3Driver
     {
+         /// <summary>
+         /// it's a main method it does what the program does
+         /// </summary>
+         /// <param name="args">default param</param>
         public static void Main(string[] args)
         {
             string username;
@@ -32,6 +49,9 @@ namespace Project1MP3
             System.Console.WriteLine("Thank you for using my program, " + username + ".");
         }
 
+        /// <summary>
+        /// displays a wellcome message
+        /// </summary>
         private static void welcomeMessage()
         {
             System.Console.WriteLine("Hello and welcome to MP3 Saver, developed shamefully by Ash North.\n" +
@@ -39,20 +59,29 @@ namespace Project1MP3
                 "needed an example for enums (I don't blame you I have no idea what would be an enum in MP3s.\n");
         }
 
+        /// <summary>
+        /// requests username
+        /// </summary>
+        /// <returns>the input that actually got accepted</returns>
         private static string usernameRequest()
         {
             string username;
             System.Console.Write("What's your name?");
-            username = System.Console.ReadLine();
+            username = System.Console.ReadLine();//getting username
             if(username != null && username != "")
             {
 
-                return username;
+                return username;//successful input, proceed
             }
-            System.Console.WriteLine("You didn't say anything?");
+            System.Console.WriteLine("You didn't say anything?");//error handling
             return usernameRequest();
         }
 
+        /// <summary>
+        /// runs a menu
+        /// </summary>
+        /// <param name="hasStoredMP3">tells whether there is an mp3 stored</param>
+        /// <returns>the input</returns>
         private static int menu(bool hasStoredMP3)
         {
             int selection;
@@ -80,6 +109,10 @@ namespace Project1MP3
             return menu(hasStoredMP3);//invalid input handling part 2
         }
 
+        /// <summary>
+        /// make a new mp3
+        /// </summary>
+        /// <returns>an mp3</returns>
         private static MP3 makeNewFile()
         {
             string title;
@@ -115,6 +148,11 @@ namespace Project1MP3
             return new MP3(title, artist, releaseDate, playtime, genre, downloadCost, fileSize, path);
         }
 
+        /// <summary>
+        /// parses string input to Genre enum
+        /// </summary>
+        /// <param name="str">the input</param>
+        /// <returns>the enum value</returns>
         private static Genre parseStringToGenre(string str)
         {
             while (true)
