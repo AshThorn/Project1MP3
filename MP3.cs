@@ -18,6 +18,11 @@ namespace Project1MP3
         {
             setTitle(title);
             setArtist(artist);
+            setReleaseDate(releaseDate);
+            setPlaytime(playtime);
+            setGenre(genre);
+            setFileSize(fileSize);
+            setPath(path);
         }
 
         public void setTitle(string title)

@@ -11,12 +11,18 @@ namespace Project1MP3
             string username;
             int selection;
             MP3[] storage = new MP3[0];
+            MP3 newMP3;
             welcomeMessage();//explanation of program's functionality
             username = usernameRequest();//get user's name
             do
             {
                 selection = menu(storage.Length);
+                if(selection == 1)
+                {
+                    newMP3 = makeNewFile();
+                }
             } while (selection != 3);
+            System.Console.WriteLine("Thank you for using my program, " + username + ".");
         }
 
         private static void welcomeMessage()
@@ -65,5 +71,18 @@ namespace Project1MP3
             Console.WriteLine("This is not a valid entry.");
             return menu(storageLength);
         }
+
+        private static MP3 makeNewFile()
+        {
+            string title;
+            string artist;
+            string releaseDate;
+            double playtime;
+            Genre genre;
+            decimal downloadCost;
+            double fileSize;
+            string path;
+
     }
+}
 }
