@@ -26,7 +26,7 @@ namespace Project1MP3
                 }
                 else if(selection == 2)
                 {
-                    System.Console.WriteLine(storage);
+                    System.Console.WriteLine(storage.toString());
                 }
             } while (selection != 3);//continue running until user requests exit
             System.Console.WriteLine("Thank you for using my program, " + username + ".");
@@ -46,10 +46,11 @@ namespace Project1MP3
             username = System.Console.ReadLine();
             if(username != null && username != "")
             {
-                System.Console.WriteLine("You didn't say anything?");
-                return usernameRequest();
+
+                return username;
             }
-            return username;
+            System.Console.WriteLine("You didn't say anything?");
+            return usernameRequest();
         }
 
         private static int menu(bool hasStoredMP3)
