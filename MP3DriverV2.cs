@@ -11,6 +11,7 @@ namespace MP3Project
         public static void Main(string[] args)
         {
             Mp3s = new Playlist();
+            Console.WriteLine(Mp3s);
         }
     }
 }

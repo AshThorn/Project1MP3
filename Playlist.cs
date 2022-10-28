@@ -33,14 +33,10 @@ namespace MP3Project
 
         public static bool ValidDate(string input)
         {
-            int month;
-            int day;
-            int year;
-            return input.Length == 0 &&
-                int.TryParse(input.Substring(0, 2), out month) &&
-                int.TryParse(input.Substring(3, 2), out day) &&
-                int.TryParse(input.Substring(6, 4), out year) &&
-                //day can exist at all
+            int month = int.Parse(input.Substring(0,2));
+            int day = int.Parse(input.Substring(3,2));
+            int year = int.Parse(input.Substring(6,4));
+            return//day can exist at all
                 day >= 1 &&
                 day <= 31 &&
                 //month can exist at all
@@ -61,6 +57,19 @@ namespace MP3Project
                         month % 2 == 0//in remaining months, all evens have 31
                     )
                 );
+        }
+
+        public override string ToString()
+        {
+            string output =
+                "Playlist name:\t" + name + "\n" +
+                "Playlist author:\t" + author + "\n" +
+                "Created on:\t" + creationDate + "\n";
+            foreach(MP3 mp3 in playlist)
+            {
+                output += mp3;
+            }
+            return output;
         }
 
         public List<MP3> playlist1
