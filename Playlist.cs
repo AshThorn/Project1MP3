@@ -134,5 +134,59 @@ namespace MP3Project
                 }
             }
         }
+
+        public void AddMP3(MP3 mp3)
+        {
+            playlist.Add(new MP3(mp3));
+        }
+
+        public void EditMP3(MP3 mp3, int location)
+        {
+            playlist[location] = new MP3(mp3);
+        }
+
+        public void RemoveMP3(int location)
+        {
+            playlist.RemoveAt(location);
+        }
+
+        public List<MP3> ListByGenre(Genre genre)
+        {
+            List<MP3> output = new List<MP3>();
+            foreach(MP3 mp3 in playlist)
+            {
+                if(mp3.getGenre() == genre)
+                {
+                    output.Add(new MP3(mp3));
+                }
+            }
+            return output;
+        }
+
+        public List<MP3> ListByAuthor(string author)
+        {
+            List<MP3> output = new List<MP3>();
+            foreach(MP3 mp3 in playlist)
+            {
+                if(mp3.getArtist() == author)
+                {
+                    output.Add(new MP3(mp3));
+                }
+            }
+            return output;
+        }
+
+        public MP3 SearchByTitle(string title)
+        {
+            MP3 output = new MP3();
+            foreach(MP3 mp3 in playlist)
+            {
+                if(mp3.getTitle() == title)
+                {
+                    output = new MP3(mp3);
+                }
+            }
+            return output;
+        }
     }
 }

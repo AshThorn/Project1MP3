@@ -46,8 +46,21 @@ namespace MP3Project
             setReleaseDate(releaseDate);
             setPlaytime(playtime);
             setGenre(genre);
+            setDownloadCost(downloadCost);
             setFileSize(fileSize);
             setPath(path);
+        }
+
+        public MP3(MP3 toCopy)
+        {
+            setTitle(toCopy.title);
+            setArtist(toCopy.artist);
+            setReleaseDate(toCopy.releaseDate);
+            setPlaytime(toCopy.playtime);
+            setGenre(toCopy.genre);
+            setDownloadCost(toCopy.downloadCost);
+            setFileSize(toCopy.fileSize);
+            setPath(toCopy.path);
         }
 
         /// <summary>
