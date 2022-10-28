@@ -24,7 +24,7 @@ namespace MP3Project
          /// it's a main method it does what the program does
          /// </summary>
          /// <param name="args">default param</param>
-        public static void Main(string[] args)
+        /*public static void Main(string[] args)
         {
             string username;
             int selection;
@@ -47,7 +47,7 @@ namespace MP3Project
                 }
             } while (selection != 3);//continue running until user requests exit
             System.Console.WriteLine("Thank you for using my program, " + username + ".");
-        }
+        }*/
 
         /// <summary>
         /// displays a wellcome message
