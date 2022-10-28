@@ -9,7 +9,7 @@
 */
 using System;
 
-namespace Project1MP3
+namespace MP3Project
 {
     /// <summary>
     /// list of genres

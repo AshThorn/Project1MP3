@@ -13,7 +13,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace Project1MP3
+namespace MP3Project
 {
     /// <summary>
     /// driver for mp3s

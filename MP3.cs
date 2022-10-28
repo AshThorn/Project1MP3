@@ -10,7 +10,7 @@
 
 using System;
 
-namespace Project1MP3
+namespace MP3Project
 {
     /// <summary>
     /// a file containing all of the information about an mp3
