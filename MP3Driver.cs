@@ -153,7 +153,7 @@ namespace MP3Project
         /// </summary>
         /// <param name="str">the input</param>
         /// <returns>the enum value</returns>
-        private static Genre parseStringToGenre(string str)
+        public static Genre parseStringToGenre(string str)
         {
             while (true)
             {
