@@ -12,7 +12,7 @@ namespace MP3Project
 
         public Playlist()
         {
-            playlist1 = new List<MP3>(5);
+            playlist1 = new List<MP3>(0);
             name1 = "Playlist";
             author1 = "Placeholder McDude";
             creationDate1 = DateTime.Now.ToString("MM/dd/yyyy");
