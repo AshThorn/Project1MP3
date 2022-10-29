@@ -75,7 +75,7 @@ namespace MP3Project
                 "Created on:\t" + creationDate + "\n";
             foreach(MP3 mp3 in playlist)
             {
-                output += mp3.ToString();
+                output += "\n" + mp3;
             }
             return output;
         }
@@ -204,6 +204,91 @@ namespace MP3Project
                 index++;
             }
             return output;
+        }
+
+        public void SortByTitle()
+        {
+            for(int stop = playlist.Count; stop > 0; stop--)
+            {
+                for(int i = 0; i < stop-1; i++)
+                {
+                    if (GreaterThan(playlist[i].getTitle(), playlist[i+1].getTitle()))
+                    {
+                        MP3 temp = new MP3(playlist[i]);
+                        playlist[i] = playlist[i+1];
+                        playlist[i+1] = temp;
+                    }
+                }
+            }
+        }
+
+        public void SortByDate()
+        {
+            for (int stop = playlist.Count; stop > 0; stop--)
+            {
+                for (int i = 0; i < stop - 1; i++)
+                {
+                    if (GreaterThanDate(playlist[i].getReleaseDate(), playlist[i+1].getReleaseDate()))
+                    {
+                        MP3 temp = new MP3(playlist[i]);
+                        playlist[i] = playlist[i + 1];
+                        playlist[i + 1] = temp;
+                    }
+                }
+            }
+        }
+
+        public static bool GreaterThan(string str1, string str2)
+        {
+            str1.ToLower();
+            str2.ToLower();
+            for(int i = 0; i < str1.Length; i++)
+            {
+                if (i > str2.Length)
+                {
+                    return false;
+                }
+                if (str1[i] > str2[i])
+                {
+                    return true;
+                }
+                if (str1[i] < str2[i])
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        public static bool GreaterThanDate(string str1, string str2)
+        {
+            int year1 = int.Parse(str1.Substring(6, 4));
+            int year2 = int.Parse(str2.Substring(6, 4));
+            if(year1 > year2)
+            {
+                return true;
+            }
+            if(year1 < year2)
+            {
+                return false;
+            }
+            int month1 = int.Parse(str1.Substring(0, 2));
+            int month2 = int.Parse(str2.Substring(0, 2));
+            if(month1 > month2)
+            {
+                return true;
+            }
+            if(month1 < month2)
+            {
+                return false;
+            }
+            int day1 = int.Parse(str1.Substring(3, 2));
+            int day2 = int.Parse(str2.Substring(3, 2));
+            if(day1 > day2)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

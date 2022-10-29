@@ -105,74 +105,81 @@ namespace MP3Project
 
         public static void Edit()
         {
-            if (playlistCheck())
+            if (PlaylistCheck())
             {
-
+                Console.WriteLine("Enter the index of the MP3 you want to edit:");
             }
         }
 
         public static void Drop()
         {
-            if (playlistCheck())
+            if (PlaylistCheck())
             {
-
+                Console.Write("Enter the location to remove at:");
+                mp3s.RemoveMP3(int.Parse(Console.ReadLine()));
             }
         }
 
         public static void Display()
         {
-            if (playlistCheck())
+            if (PlaylistCheck())
             {
-
+                Console.WriteLine(mp3s);
             }
         }
 
         public static void Search()
         {
-            if (playlistCheck())
+            if (PlaylistCheck())
             {
-
+                Console.WriteLine("Enter the title to search for (case sensitive):");
+                mp3s.SearchByTitle(Console.ReadLine());
             }
         }
 
         public static void FilterGenre()
         {
-            if (playlistCheck())
+            if (PlaylistCheck())
             {
-
+                Console.WriteLine("Enter the genre to filter by:");
+                Genre genre = MP3Driver.parseStringToGenre(Console.ReadLine());
+                Playlist filtered = new Playlist(mp3s.ListByGenre(genre), mp3s.name1 + " Filtered by genre: " + genre, mp3s.author1, mp3s.creationDate1);
+                Console.WriteLine(filtered);
             }
         }
 
         public static void FilterArtist()
         {
-            if (playlistCheck())
+            if (PlaylistCheck())
             {
-
+                Console.WriteLine("Enter the author to filter by:");
+                string author = Console.ReadLine();
+                Playlist filtered = new Playlist(mp3s.ListByAuthor(author), mp3s.name1 + " Filtered by author: " + author, mp3s.author1, mp3s.creationDate1);
+                Console.WriteLine(filtered);
             }
         }
 
         public static void SortTitle()
         {
-            if (playlistCheck())
+            if (PlaylistCheck())
             {
-
+                mp3s.SortByTitle();
             }
         }
 
         public static void SortDate()
         {
-            if (playlistCheck())
+            if (PlaylistCheck())
             {
-
+                mp3s.SortByDate();
             }
         }
 
-        public static bool playlistCheck()
+        public static bool PlaylistCheck()
         {
             if(mp3s.playlist1.Capacity == 0)
             {
                 throw new NoNullAllowedException(emptyPlaylistMessage);
-                return false;
             }
             return true;
         }

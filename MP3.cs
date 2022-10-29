@@ -219,7 +219,7 @@ namespace MP3Project
         /// a normal tostring method
         /// </summary>
         /// <returns>take a guess</returns>
-        public string toString()
+        public override string ToString()
         {
             return
                 "MP3 Title:\t" + title + "\n" +

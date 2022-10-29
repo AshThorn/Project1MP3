@@ -133,7 +133,10 @@ namespace MP3Project
             Console.Write("Enter the artist:");
             artist = System.Console.ReadLine();
             Console.Write("Enter the release date:");
-            releaseDate = System.Console.ReadLine();
+            do
+            {
+                releaseDate = System.Console.ReadLine();
+            } while (!Playlist.ValidDate(releaseDate));
             Console.Write("Enter the playtime:");
             playtime = Double.Parse(Console.ReadLine());
             Console.Write("Enter the genre:");
