@@ -113,7 +113,7 @@ namespace MP3Project
         /// make a new mp3
         /// </summary>
         /// <returns>an mp3</returns>
-        private static MP3 makeNewFile()
+        public static MP3 makeNewFile()
         {
             string title;
             string artist;
