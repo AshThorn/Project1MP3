@@ -54,7 +54,7 @@ namespace MP3Project
                     day == 31 &&
                     (
                         (month <= 7 && month % 2 == 1) ||//in first 7 months, all odds have 31
-                        month % 2 == 0//in remaining months, all evens have 31
+                        (month > 7 && month % 2 == 0)//in remaining months, all evens have 31
                     )
                 );
         }
@@ -98,7 +98,7 @@ namespace MP3Project
                 }
                 else
                 {
-                    throw new ArgumentNullException();
+                    throw new ArgumentNullException("name", "Empty playlist field.");
                 }
             }
         }
@@ -111,8 +111,14 @@ namespace MP3Project
             }
             set
             {
-                if(ValidString(value))
+                if (ValidString(value))
+                {
                     author = value;
+                }
+                else
+                {
+                    throw new ArgumentNullException("author", "Empty author field.");
+                }
             }
         }
 
@@ -130,7 +136,7 @@ namespace MP3Project
                 }
                 else
                 {
-                    throw new ArgumentException();
+                    throw new ArgumentException("creationDate", "Invalid date.");
                 }
             }
         }
