@@ -26,6 +26,14 @@ namespace MP3Project
             creationDate1 = creationDate;
         }
 
+        public Playlist(List<MP3> playlist,  string name, string author, string creationDate)
+        {
+            playlist1 = new List<MP3>(playlist);
+            name1 = name;
+            author1 = author;
+            creationDate1 = creationDate;
+        }
+
         public static bool ValidString(string input)
         {
             return input != null && input.Length > 0;
@@ -67,7 +75,7 @@ namespace MP3Project
                 "Created on:\t" + creationDate + "\n";
             foreach(MP3 mp3 in playlist)
             {
-                output += mp3;
+                output += mp3.ToString();
             }
             return output;
         }
@@ -185,12 +193,15 @@ namespace MP3Project
         public MP3 SearchByTitle(string title)
         {
             MP3 output = new MP3();
+            int index = 0;
             foreach(MP3 mp3 in playlist)
             {
                 if(mp3.getTitle() == title)
                 {
+                    Console.WriteLine("LOCATION:" + index);
                     output = new MP3(mp3);
                 }
+                index++;
             }
             return output;
         }
