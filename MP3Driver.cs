@@ -128,10 +128,18 @@ namespace MP3Project
 
             //get the values for the MP3
             //I know these lack error handling but I'm running out of time
+            //update: we have (some) error handling now
             System.Console.Write("Enter the title:");
-            title = System.Console.ReadLine();
+            do
+            {
+
+                title = System.Console.ReadLine();
+            } while (!Playlist.ValidString(title));
             Console.Write("Enter the artist:");
-            artist = System.Console.ReadLine();
+            do
+            {
+                artist = System.Console.ReadLine();
+            } while (!Playlist.ValidString(artist));
             Console.Write("Enter the release date:");
             do
             {
@@ -146,7 +154,10 @@ namespace MP3Project
             Console.Write("Enter the size of the file in MB:");
             fileSize = Double.Parse(Console.ReadLine());
             Console.Write("Enter the path to the album cover:");
-            path = System.Console.ReadLine();
+            do
+            {
+                path = System.Console.ReadLine();
+            } while (!Playlist.ValidString(path));
 
             return new MP3(title, artist, releaseDate, playtime, genre, downloadCost, fileSize, path);
         }

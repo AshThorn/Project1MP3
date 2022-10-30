@@ -1,14 +1,20 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿/*
+ *  Project: Project 3
+    File name: MP3DriverV2
+    Description: IO for a playlist
+    Course: CSCI 1260
+    Author: Ash North
+    Created: 2022-10-28
+    Copyright: Ash North 2022
+*/
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.Design;
 using System.Data;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace MP3Project
 {
+    /// <summary>
+    /// runs end user IO with a playlist
+    /// </summary>
     public class MP3DriverV2
     {
         private static Playlist mp3s;
@@ -32,6 +38,10 @@ namespace MP3Project
         private static readonly string exitMessage = "Thank you for using my program.";
         private static readonly string emptyPlaylistMessage = "The playlist is still empty, put something in it before you try to do that.";
 
+        /// <summary>
+        /// main method
+        /// </summary>
+        /// <param name="args">list of all arguments passed in order</param>
         public static void Main(string[] args)
         {
             int input = 0;
@@ -56,12 +66,21 @@ namespace MP3Project
             Console.WriteLine(exitMessage);
         }
 
+        /// <summary>
+        /// displays menu and gives the user's input
+        /// </summary>
+        /// <returns>user input (as an int)</returns>
         public static int Menu()
         {
             Console.WriteLine(menuMessage);
             return int.Parse(Console.ReadLine());
         }
 
+        /// <summary>
+        /// processes user input
+        /// </summary>
+        /// <param name="input">user input</param>
+        /// <exception cref="ArgumentOutOfRangeException">thrown when user gives an input that does not exist</exception>
         public static void Select(int input)
         {
             switch(input){
@@ -80,6 +99,9 @@ namespace MP3Project
             }
         }
 
+        /// <summary>
+        /// creates an empty playlist with properties that are supplied here
+        /// </summary>
         public static void CreatePlaylist()
         {
             string name;
@@ -98,11 +120,17 @@ namespace MP3Project
             mp3s = new Playlist(0, name, author, creationDate);
         }
 
+        /// <summary>
+        /// add a new MP3
+        /// </summary>
         public static void Add()
         {
             mp3s.AddMP3(MP3Driver.makeNewFile());
         }
 
+        /// <summary>
+        /// edit an mp3
+        /// </summary>
         public static void Edit()
         {
             if (PlaylistCheck())
@@ -111,6 +139,9 @@ namespace MP3Project
             }
         }
 
+        /// <summary>
+        /// remove an mp3
+        /// </summary>
         public static void Drop()
         {
             if (PlaylistCheck())
@@ -120,6 +151,9 @@ namespace MP3Project
             }
         }
 
+        /// <summary>
+        /// display the list
+        /// </summary>
         public static void Display()
         {
             if (PlaylistCheck())
@@ -128,6 +162,9 @@ namespace MP3Project
             }
         }
 
+        /// <summary>
+        /// s3earch by title
+        /// </summary>
         public static void Search()
         {
             if (PlaylistCheck())
@@ -137,6 +174,9 @@ namespace MP3Project
             }
         }
 
+        /// <summary>
+        /// filter by genre
+        /// </summary>
         public static void FilterGenre()
         {
             if (PlaylistCheck())
@@ -148,6 +188,9 @@ namespace MP3Project
             }
         }
 
+        /// <summary>
+        /// filter by artist
+        /// </summary>
         public static void FilterArtist()
         {
             if (PlaylistCheck())
@@ -159,6 +202,9 @@ namespace MP3Project
             }
         }
 
+        /// <summary>
+        /// sort by title
+        /// </summary>
         public static void SortTitle()
         {
             if (PlaylistCheck())
@@ -166,7 +212,10 @@ namespace MP3Project
                 mp3s.SortByTitle();
             }
         }
-
+        
+        /// <summary>
+        /// sort by date
+        /// </summary>
         public static void SortDate()
         {
             if (PlaylistCheck())
@@ -175,6 +224,11 @@ namespace MP3Project
             }
         }
 
+        /// <summary>
+        /// checks if playlist contains mp3s
+        /// </summary>
+        /// <returns>validity check</returns>
+        /// <exception cref="NoNullAllowedException">disallows the accessing of an object without initializing it</exception>
         public static bool PlaylistCheck()
         {
             if(mp3s.playlist1.Capacity == 0)

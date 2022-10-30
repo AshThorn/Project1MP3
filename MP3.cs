@@ -1,6 +1,6 @@
 ﻿/*
  *  Project: Projecct 1
-    File name: Project1MP3Driver
+    File name: MP3
     Description: mp3 objects
     Course: CSCI 1260
     Author: Ash North
@@ -51,6 +51,10 @@ namespace MP3Project
             setPath(path);
         }
 
+        /// <summary>
+        /// copy constructor
+        /// </summary>
+        /// <param name="toCopy">object to dupiicate</param>
         public MP3(MP3 toCopy)
         {
             setTitle(toCopy.title);
