@@ -345,7 +345,7 @@ namespace MP3Project
             {
                 if (i > str2.Length)
                 {
-                    return false;
+                    return true;
                 }
                 if (str1[i] > str2[i])
                 {
