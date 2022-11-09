@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection.Metadata.Ecma335;
 
 namespace MP3Project
 {
@@ -398,23 +399,27 @@ namespace MP3Project
         }
         public bool SaveNeeded(string pathToFile)
         {
-            if (!playlist.Equals(GetMp3FromFile(pathToFile)))
+            if (MP3.Equals(this, GetPlaylistFromFile(pathToFile)))
             {
                 return true;
             }
             return false;
-
         }
 
         public void FillFromFile(string pathToFile)
         {
-            playlist = new List<MP3>(GetMp3FromFile(pathToFile));
+            playlist = new List<MP3>(GetMp3sFromFile(pathToFile));
+            string[] header = GetHeaderFromFile(pathToFile);
+            name = header[0];
+            author = header[1];
+            creationDate = header[2];
         }
 
         public void SaveToFile(string pathToFile)
         {
-            string[] toWrite = new string[playlist.Count];
-            for(int i = 0; i < toWrite.Length; i++)
+            string[] toWrite = new string[playlist.Count+1];
+            toWrite[0] = name + "|" + author + "|" + creationDate;
+            for(int i = 1; i < toWrite.Length; i++)
             {
                 toWrite[i] = playlist[i].ToStringDelimited();
             }
@@ -423,20 +428,20 @@ namespace MP3Project
             //but that's a bit over the top for something of this scale
         }
 
-        public static List<MP3> GetMp3FromFile(string pathToFile)
+        public static List<MP3> GetMp3sFromFile(string pathToFile)
         {
             string[] lines = File.ReadAllLines(pathToFile);
             List<MP3> mp3s = new List<MP3>(lines.Length);
             string[] split = new string[8];
-            foreach (string line in lines)
+            for (int i=1; i<lines.Length; i++)
             {
-                split = line.Split("|");
+                split = lines[i].Split("|");
                 mp3s.Add(new MP3(split[0], split[1], split[2], double.Parse(split[3]), MP3Driver.parseStringToGenre(split[4]), decimal.Parse(split[5]), double.Parse(split[6]), split[7]));
             }
             return mp3s;
         }
 
-        public bool Equals(List<MP3> list1, List<MP3> list2)
+        public static bool Equals(List<MP3> list1, List<MP3> list2)
         {
             if (list1.Count != list2.Count)
             {
@@ -450,6 +455,26 @@ namespace MP3Project
                 }
             }
             return true;
+        }
+
+        public bool Equals(Playlist pl1, Playlist pl2)
+        {
+            if(pl1.name == pl2.name && pl1.author == pl2.author && pl1.creationDate == pl2.creationDate){
+                return true;
+            }
+            return false;
+        }
+
+        public static string[] GetHeaderFromFile(string pathToFile)
+        {
+            return File.ReadAllLines(pathToFile)[0].Split("|");
+        }
+
+        public static Playlist GetPlaylistFromFile(string pathToFile)
+        {
+            string[] header = GetHeaderFromFile(pathToFile);
+            List<MP3> mp3s = new List<MP3>(GetMp3sFromFile(pathToFile));
+            return new Playlist(mp3s, header[0], header[1], header[2]);
         }
     }
 }
