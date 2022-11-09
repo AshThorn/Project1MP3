@@ -9,6 +9,7 @@
 */
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MP3Project
 {
@@ -394,6 +395,61 @@ namespace MP3Project
                 return true;
             }
             return false;
+        }
+        public bool SaveNeeded(string pathToFile)
+        {
+            if (!playlist.Equals(GetMp3FromFile(pathToFile)))
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        public void FillFromFile(string pathToFile)
+        {
+            playlist = new List<MP3>(GetMp3FromFile(pathToFile));
+        }
+
+        public void SaveToFile(string pathToFile)
+        {
+            string[] toWrite = new string[playlist.Count];
+            for(int i = 0; i < toWrite.Length; i++)
+            {
+                toWrite[i] = playlist[i].ToStringDelimited();
+            }
+            File.WriteAllLines(pathToFile, toWrite);
+            //this could be significantly optimized by only adding or removing text rather than overwriting the entire thing...
+            //but that's a bit over the top for something of this scale
+        }
+
+        public static List<MP3> GetMp3FromFile(string pathToFile)
+        {
+            string[] lines = File.ReadAllLines(pathToFile);
+            List<MP3> mp3s = new List<MP3>(lines.Length);
+            string[] split = new string[8];
+            foreach (string line in lines)
+            {
+                split = line.Split("|");
+                mp3s.Add(new MP3(split[0], split[1], split[2], double.Parse(split[3]), MP3Driver.parseStringToGenre(split[4]), decimal.Parse(split[5]), double.Parse(split[6]), split[7]));
+            }
+            return mp3s;
+        }
+
+        public bool Equals(List<MP3> list1, List<MP3> list2)
+        {
+            if (list1.Count != list2.Count)
+            {
+                return false;
+            }
+            for (int i = 0; i < list1.Count; i++)
+            {
+                if (list1[i].ToString() != list2[i].ToString())
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

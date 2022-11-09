@@ -9,6 +9,9 @@
 */
 
 using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace MP3Project
 {
@@ -230,6 +233,13 @@ namespace MP3Project
                 "Artist:\t" + artist + "\tGenre:\t" + genre + "\n" +
                 "Download Cost:\t" + downloadCost + "\tFile Size:\t" + fileSize + "\n" +
                 "Song Playtime:\t" + playtime + "\tAlbum Photo:\t" + path;
+        }
+
+        public string ToStringDelimited()
+        {
+            return getTitle() + "|" + getArtist() + "|" + getReleaseDate() + "|" +
+                getPlaytime() + "|" + getGenre() + "|" + getDownloadCost() + "|" +
+                getFileSize() + "|" + getPath();
         }
     }
 }
