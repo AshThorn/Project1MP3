@@ -34,9 +34,12 @@ namespace MP3Project
             "\t8)\tDisplay list filtered by artist\n" +
             "\t9)\tSort by song title\n" +
             "\t10)\tSort by release date\n" +
-            "\t11)\tExit";
+            "\t11)\tLoadFromFile\n" +
+            "\t12)\tSaveToFile\n" +
+            "\t0)\tExit";
         private static readonly string exitMessage = "Thank you for using my program.";
         private static readonly string emptyPlaylistMessage = "The playlist is still empty, put something in it before you try to do that.";
+        private static string path = "mp3s.txt";
 
         /// <summary>
         /// main method
@@ -47,7 +50,7 @@ namespace MP3Project
             int input = 0;
             mp3s = new Playlist();
             Console.WriteLine(welcomeMessage);
-            while (input != 11)
+            while (input != 0)
             {
                 try
                 {
@@ -84,6 +87,7 @@ namespace MP3Project
         public static void Select(int input)
         {
             switch(input){
+                case 0: break;
                 case 1:CreatePlaylist(); break;
                 case 2:Add(); break;
                 case 3:Edit(); break;
@@ -94,7 +98,8 @@ namespace MP3Project
                 case 8:FilterArtist(); break;
                 case 9:SortTitle(); break;
                 case 10:SortDate(); break;
-                case 11:break;
+                case 11:SaveToFile(); break;
+                case 12:LoadFromFile(); break;
                 default:throw new ArgumentOutOfRangeException("input", "Invalid selection."); break;
             }
         }
@@ -236,6 +241,36 @@ namespace MP3Project
                 throw new NoNullAllowedException(emptyPlaylistMessage);
             }
             return true;
+        }
+
+        public static void SaveToFile()
+        {
+            Console.Write("Where would you like to save? (Leave blank to continue using the previous file or the default): ");
+            string toSave = Console.ReadLine();
+            if (Playlist.ValidString(toSave))
+            {
+                path = toSave;
+            }
+            if(toSave == null)
+            {
+                throw new ArgumentNullException(toSave, "Path string is null.");
+            }
+            mp3s.SaveToFile(path);
+        }
+
+        public static void LoadFromFile(string path)
+        {
+            Console.Write("Where would you like to load from? (Leave blank to continue using the previous file or the default): ");
+            string toSave = Console.ReadLine();
+            if (Playlist.ValidString(toSave))
+            {
+                path = toSave;
+            }
+            if (toSave == null)
+            {
+                throw new ArgumentNullException(toSave, "Path string is null.");
+            }
+            mp3s.FillFromFile(path);
         }
     }
 }
