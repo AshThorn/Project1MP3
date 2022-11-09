@@ -87,7 +87,7 @@ namespace MP3Project
         public static void Select(int input)
         {
             switch(input){
-                case 0: break;
+                case 0:AskToSave(); break;
                 case 1:CreatePlaylist(); break;
                 case 2:Add(); break;
                 case 3:Edit(); break;
@@ -109,9 +109,14 @@ namespace MP3Project
         /// </summary>
         public static void CreatePlaylist()
         {
+            if(mp3s.playlist1.Count > 0)
+            {
+                AskToSave();
+            }
             string name;
             string author;
             string creationDate;
+            string path;
             Console.Write("Enter a playlist title:");
             name = Console.ReadLine();
             Console.Write("Enter your name (or the name of the person who made it):");
@@ -122,6 +127,7 @@ namespace MP3Project
             {
                 creationDate = DateTime.Now.ToString("MM/dd/yyyy");
             }
+            AskToSave();
             mp3s = new Playlist(0, name, author, creationDate);
         }
 
@@ -258,7 +264,7 @@ namespace MP3Project
             mp3s.SaveToFile(path);
         }
 
-        public static void LoadFromFile(string path)
+        public static void LoadFromFile()
         {
             Console.Write("Where would you like to load from? (Leave blank to continue using the previous file or the default): ");
             string toSave = Console.ReadLine();
@@ -271,6 +277,35 @@ namespace MP3Project
                 throw new ArgumentNullException(toSave, "Path string is null.");
             }
             mp3s.FillFromFile(path);
+        }
+
+        public static void AskToSave()
+        {
+            if (mp3s.SaveNeeded(path))
+            {
+                Console.WriteLine("Would you like to save before closing? (Y/N):");
+                try
+                {
+                    string toSave = Console.ReadLine();
+                    if(toSave.ToUpper() == "Y")
+                    {
+                        SaveToFile();
+                    }
+                    else if(toSave.ToUpper() == "N")
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        throw new ArgumentException(toSave, "That is not an option.");
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    AskToSave();
+                }
+            }
         }
     }
 }
