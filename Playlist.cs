@@ -455,7 +455,15 @@ namespace MP3Project
             for (int i=1; i<lines.Length; i++)
             {
                 split = lines[i].Split("|");
-                mp3s.Add(new MP3(split[0], split[1], split[2], double.Parse(split[3]), MP3Driver.parseStringToGenre(split[4]), decimal.Parse(split[5]), double.Parse(split[6]), split[7]));
+                mp3s.Add(new MP3(
+                    split[0],
+                    split[1],
+                    split[2],
+                    double.Parse(split[3]),
+                    MP3Driver.parseStringToGenre(split[4]),
+                    decimal.Parse(split[5]),
+                    double.Parse(split[6]),
+                    split[7]));
             }
             return mp3s;
         }
