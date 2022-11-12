@@ -249,6 +249,10 @@ namespace MP3Project
             return true;
         }
 
+        /// <summary>
+        /// stores playlist to a file
+        /// </summary>
+        /// <exception cref="ArgumentNullException">invalid path entered</exception>
         public static void SaveToFile()
         {
             Console.Write("Where would you like to save? (Leave blank to continue using the previous file or the default): ");
@@ -264,6 +268,10 @@ namespace MP3Project
             mp3s.SaveToFile(path);
         }
 
+        /// <summary>
+        /// pulls playlist from a file
+        /// </summary>
+        /// <exception cref="ArgumentNullException">invalid path entered</exception>
         public static void LoadFromFile()
         {
             Console.Write("Where would you like to load from? (Leave blank to continue using the previous file or the default): ");
@@ -279,6 +287,9 @@ namespace MP3Project
             mp3s.FillFromFile(path);
         }
 
+        /// <summary>
+        /// asks the user if they would like to safe and then asks accordingly
+        /// </summary>
         public static void AskToSave()
         {
             if (mp3s.SaveNeeded(path))

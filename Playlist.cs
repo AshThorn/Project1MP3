@@ -397,6 +397,12 @@ namespace MP3Project
             }
             return false;
         }
+
+        /// <summary>
+        /// checks if the file matches the state of the playlist
+        /// </summary>
+        /// <param name="pathToFile">file to check</param>
+        /// <returns>whether save is needed</returns>
         public bool SaveNeeded(string pathToFile)
         {
             if (MP3.Equals(this, GetPlaylistFromFile(pathToFile)))
@@ -406,6 +412,10 @@ namespace MP3Project
             return false;
         }
 
+        /// <summary>
+        /// load from the file
+        /// </summary>
+        /// <param name="pathToFile">the file location</param>
         public void FillFromFile(string pathToFile)
         {
             playlist = new List<MP3>(GetMp3sFromFile(pathToFile));
@@ -415,6 +425,10 @@ namespace MP3Project
             creationDate = header[2];
         }
 
+        /// <summary>
+        /// save the playlist to a file
+        /// </summary>
+        /// <param name="pathToFile">the file location</param>
         public void SaveToFile(string pathToFile)
         {
             string[] toWrite = new string[playlist.Count+1];
@@ -428,6 +442,11 @@ namespace MP3Project
             //but that's a bit over the top for something of this scale
         }
 
+        /// <summary>
+        /// makes an mp3 list from a file
+        /// </summary>
+        /// <param name="pathToFile">file location</param>
+        /// <returns></returns>
         public static List<MP3> GetMp3sFromFile(string pathToFile)
         {
             string[] lines = File.ReadAllLines(pathToFile);
@@ -441,6 +460,13 @@ namespace MP3Project
             return mp3s;
         }
 
+        /// <summary>
+        /// checks if two mp3 lists are the same...
+        /// hm, maybe this should be in the MP3...aw well
+        /// </summary>
+        /// <param name="list1">first list</param>
+        /// <param name="list2">second list</param>
+        /// <returns>whether they're equal</returns>
         public static bool Equals(List<MP3> list1, List<MP3> list2)
         {
             if (list1.Count != list2.Count)
@@ -457,6 +483,12 @@ namespace MP3Project
             return true;
         }
 
+        /// <summary>
+        /// checks if two playlist objects are the same
+        /// </summary>
+        /// <param name="pl1">first playlist</param>
+        /// <param name="pl2">second playlist</param>
+        /// <returns>whether they're equal</returns>
         public bool Equals(Playlist pl1, Playlist pl2)
         {
             if(pl1.name == pl2.name && pl1.author == pl2.author && pl1.creationDate == pl2.creationDate){
@@ -465,11 +497,21 @@ namespace MP3Project
             return false;
         }
 
+        /// <summary>
+        /// gets the information about a playlist from a file
+        /// </summary>
+        /// <param name="pathToFile">file location</param>
+        /// <returns>array of the attributes</returns>
         public static string[] GetHeaderFromFile(string pathToFile)
         {
             return File.ReadAllLines(pathToFile)[0].Split("|");
         }
 
+        /// <summary>
+        /// gets the list of mp3s from a file
+        /// </summary>
+        /// <param name="pathToFile">file location</param>
+        /// <returns>the list</returns>
         public static Playlist GetPlaylistFromFile(string pathToFile)
         {
             string[] header = GetHeaderFromFile(pathToFile);
