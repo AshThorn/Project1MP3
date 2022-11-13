@@ -118,9 +118,9 @@ namespace MP3Project
         public override string ToString()
         {
             string output =
-                "Playlist name:\t" + name + "\n" +
+                "Playlist name:\t\t" + name + "\n" +
                 "Playlist author:\t" + author + "\n" +
-                "Created on:\t" + creationDate + "\n";
+                "Created on:\t\t" + creationDate + "\n";
             foreach(MP3 mp3 in playlist)
             {
                 output += "\n" + mp3;
@@ -435,7 +435,7 @@ namespace MP3Project
             toWrite[0] = name + "|" + author + "|" + creationDate;
             for(int i = 1; i < toWrite.Length; i++)
             {
-                toWrite[i] = playlist[i].ToStringDelimited();
+                toWrite[i] = playlist[i-1].ToStringDelimited();
             }
             File.WriteAllLines(pathToFile, toWrite);
             //this could be significantly optimized by only adding or removing text rather than overwriting the entire thing...

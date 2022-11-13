@@ -34,8 +34,8 @@ namespace MP3Project
             "\t8)\tDisplay list filtered by artist\n" +
             "\t9)\tSort by song title\n" +
             "\t10)\tSort by release date\n" +
-            "\t11)\tLoadFromFile\n" +
-            "\t12)\tSaveToFile\n" +
+            "\t11)\tLoad from a file\n" +
+            "\t12)\tSave to a file\n" +
             "\t0)\tExit";
         private static readonly string exitMessage = "Thank you for using my program.";
         private static readonly string emptyPlaylistMessage = "The playlist is still empty, put something in it before you try to do that.";
@@ -50,22 +50,23 @@ namespace MP3Project
             int input = 0;
             mp3s = new Playlist();
             Console.WriteLine(welcomeMessage);
-            while (input != 0)
+            do
             {
                 try
                 {
                     input = Menu();
-                    if(input == 0)
+                    if (input == 0)
                     {
                         break;
                     }
                     Select(input);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-            }
+            } while (input != 0);
+            AskToSave();
             Console.WriteLine(exitMessage);
         }
 
@@ -98,8 +99,8 @@ namespace MP3Project
                 case 8:FilterArtist(); break;
                 case 9:SortTitle(); break;
                 case 10:SortDate(); break;
-                case 11:SaveToFile(); break;
-                case 12:LoadFromFile(); break;
+                case 11:LoadFromFile(); break;
+                case 12: SaveToFile(); break;
                 default:throw new ArgumentOutOfRangeException("input", "Invalid selection."); break;
             }
         }
@@ -116,7 +117,6 @@ namespace MP3Project
             string name;
             string author;
             string creationDate;
-            string path;
             Console.Write("Enter a playlist title:");
             name = Console.ReadLine();
             Console.Write("Enter your name (or the name of the person who made it):");
@@ -127,8 +127,8 @@ namespace MP3Project
             {
                 creationDate = DateTime.Now.ToString("MM/dd/yyyy");
             }
-            AskToSave();
             mp3s = new Playlist(0, name, author, creationDate);
+            SaveToFile();
         }
 
         /// <summary>

@@ -230,7 +230,7 @@ namespace MP3Project
         {
             return
                 "MP3 Title:\t" + title + "\n" +
-                "Artist:\t" + artist + "\tGenre:\t" + genre + "\n" +
+                "Artist:\t\t" + artist + "\t\tGenre:\t" + genre + "\n" +
                 "Download Cost:\t" + downloadCost + "\tFile Size:\t" + fileSize + "\n" +
                 "Song Playtime:\t" + playtime + "\tAlbum Photo:\t" + path;
         }
